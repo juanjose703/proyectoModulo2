@@ -1,0 +1,35 @@
+<RadSideDrawer [drawerTransition]="sideDrawerTransition">
+  <ScrollView tkDrawerContent class="menu">
+    <StackLayout>
+      <StackLayout class="drawer-cabecera">
+        <Image src="res://ic_directorio" class="drawer-logo" stretch="aspectFit"></Image>
+        <Label text="Directorio interno" class="drawer-titulo"></Label>
+        <Label text="Personas, áreas y subáreas" class="drawer-subtitulo"></Label>
+      </StackLayout>
+
+      <GridLayout columns="auto, *" class="drawer-fila" [class.drawer-fila-activa]="isComponentSelected('/usuarios')" (tap)="onNavItemTap('/usuarios')">
+        <Label col="0" class="fas drawer-icono" text="&#xf0c0;"></Label>
+        <Label col="1" class="drawer-texto" text="Usuarios"></Label>
+      </GridLayout>
+      <GridLayout columns="auto, *" class="drawer-fila" [class.drawer-fila-activa]="isComponentSelected('/usuarios/areas')" (tap)="onNavItemTap('/usuarios/areas')">
+        <Label col="0" class="fas drawer-icono" text="&#xf1ad;"></Label>
+        <Label col="1" class="drawer-texto" text="Áreas"></Label>
+      </GridLayout>
+      <GridLayout columns="auto, *" class="drawer-fila" [class.drawer-fila-activa]="isComponentSelected('/usuarios/subareas')" (tap)="onNavItemTap('/usuarios/subareas')">
+        <Label col="0" class="fas drawer-icono" text="&#xf0e8;"></Label>
+        <Label col="1" class="drawer-texto" text="Subáreas"></Label>
+      </GridLayout>
+      <GridLayout columns="auto, *" class="drawer-fila" [class.drawer-fila-activa]="isComponentSelected('/usuarios/buscar')" (tap)="onNavItemTap('/usuarios/buscar')">
+        <Label col="0" class="fas drawer-icono" text="&#xf002;"></Label>
+        <Label col="1" class="drawer-texto" text="Buscar"></Label>
+      </GridLayout>
+      <GridLayout columns="auto, *" class="drawer-fila" [class.drawer-fila-activa]="isComponentSelected('/usuarios/nuevo')" (tap)="onNavItemTap('/usuarios/nuevo')">
+        <Label col="0" class="fas drawer-icono" text="&#xf234;"></Label>
+        <Label col="1" class="drawer-texto" text="Nueva persona"></Label>
+      </GridLayout>
+    </StackLayout>
+  </ScrollView>
+  <GridLayout tkMainContent>
+    <page-router-outlet></page-router-outlet>
+  </GridLayout>
+</RadSideDrawer>

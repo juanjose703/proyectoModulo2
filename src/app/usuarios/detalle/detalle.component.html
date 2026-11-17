@@ -1,0 +1,33 @@
+<ActionBar title="Detalle">
+  <NavigationButton text="Volver" android.systemIcon="ic_menu_back" (tap)="volver()"></NavigationButton>
+</ActionBar>
+<ScrollView class="pagina">
+  <StackLayout *ngIf="persona; else noEncontrado">
+    <StackLayout class="detalle-cabecera">
+      <Label [text]="persona.nombre.charAt(0)" class="avatar-grande" (longPress)="alMantenerPresionado($any($event))"></Label>
+      <Label [text]="persona.nombre" class="detalle-nombre" textWrap="true"></Label>
+      <Label [text]="persona.categoria" class="chip chip-claro"></Label>
+      <Label class="fas detalle-estrella" [class.icono-fav-activo]="persona.favorito" text="&#xf005;"></Label>
+      <Label text="Mantén presionado el avatar para marcar favorito" class="detalle-ayuda" textWrap="true"></Label>
+    </StackLayout>
+
+    <StackLayout class="contenedor">
+      <StackLayout class="tarjeta">
+        <Label text="Correo" class="fecha"></Label>
+        <Label [text]="persona.correo" class="dato" textWrap="true"></Label>
+        <Label text="Subárea" class="fecha"></Label>
+        <Label [text]="persona.subarea" class="dato"></Label>
+        <Label text="Creación" class="fecha"></Label>
+        <Label [text]="persona.creacion" class="dato"></Label>
+        <StackLayout *ngIf="fechas.mostrarFechas">
+          <Label text="Última actualización" class="fecha"></Label>
+          <Label [text]="persona.actualizacion" class="dato"></Label>
+        </StackLayout>
+      </StackLayout>
+      <Button text="Cambiar categoría" (tap)="cambiarCategoria()" class="boton-primario"></Button>
+    </StackLayout>
+  </StackLayout>
+  <ng-template #noEncontrado>
+    <Label text="No se encontró a esta persona" class="aviso-vista contenedor"></Label>
+  </ng-template>
+</ScrollView>

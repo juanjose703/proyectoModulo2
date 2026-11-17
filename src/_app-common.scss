@@ -1,0 +1,23 @@
+@import 'tema';
+
+Page { background-color: $fondo; }
+ActionBar { background-color: $primario; color: white; }
+Label { color: $texto; font-size: 16; }
+Button { font-size: 15; }
+
+// Iconos Font Awesome (fuentes en src/fonts)
+.fab { font-family: 'Font Awesome 5 Brands', 'fa-brands-400'; }
+.fas { font-family: 'Font Awesome 5 Free', 'fa-solid-900'; font-weight: 900; }
+.far { font-family: 'Font Awesome 5 Free', 'fa-regular-400'; }
+
+// ---- Side drawer ----
+.menu { background-color: white; }
+.drawer-cabecera { background-color: $primario-osc; padding: 30 16 18 16; }
+.drawer-logo { width: 64; height: 64; horizontal-alignment: left; margin-bottom: 10; }
+.drawer-titulo { color: white; font-size: 22; font-weight: bold; }
+.drawer-subtitulo { color: #c5cae9; font-size: 13; }
+.drawer-fila { padding: 14 16; border-left-width: 4; border-left-color: transparent; }
+.drawer-icono { color: $suave; font-size: 18; width: 36; }
+.drawer-texto { color: $texto; font-size: 17; }
+.drawer-fila-activa { background-color: #e8eaf6; border-left-color: $acento; }
+.drawer-fila-activa .drawer-icono, .drawer-fila-activa .drawer-texto { color: $primario; font-weight: bold; }

@@ -1,0 +1,30 @@
+<ActionBar title="Nueva persona">
+  <NavigationButton text="Volver" android.systemIcon="ic_menu_back" (tap)="volver()"></NavigationButton>
+</ActionBar>
+<ScrollView class="pagina">
+  <StackLayout class="contenedor formulario">
+
+    <Label text="Nombre completo" class="etiqueta-campo"></Label>
+    <TextField hint="Ej. María Pérez" class="campo"
+               [(ngModel)]="modelo.nombre" name="nombre" #nombre="ngModel"
+               required nsMinimoCaracteres="3"></TextField>
+    <Label *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="error" textWrap="true"
+           [text]="nombre.hasError('required') ? 'El nombre es obligatorio' : 'Escribe al menos ' + nombre.errors.minimoCaracteres.requerido + ' caracteres (llevas ' + nombre.errors.minimoCaracteres.actual + ')'"></Label>
+
+    <Label text="Correo electrónico" class="etiqueta-campo"></Label>
+    <TextField hint="nombre@empresa.com" keyboardType="email" autocapitalizationType="none" autocorrect="false" class="campo"
+               [(ngModel)]="modelo.correo" name="correo" #correo="ngModel"
+               required nsCorreoValido></TextField>
+    <Label *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="error" textWrap="true"
+           [text]="correo.hasError('required') ? 'El correo es obligatorio' : 'El correo no tiene un formato válido'"></Label>
+
+    <Label text="Subárea" class="etiqueta-campo"></Label>
+    <Button [text]="modelo.subarea" class="selector" (tap)="elegirSubarea()"></Button>
+
+    <Label text="Categoría" class="etiqueta-campo"></Label>
+    <Button [text]="modelo.categoria" class="selector" (tap)="elegirCategoria()"></Button>
+
+    <Button text="Guardar persona" class="boton-primario" [isEnabled]="nombre.valid && correo.valid" (tap)="guardar()"></Button>
+    <Label *ngIf="!(nombre.valid && correo.valid)" text="Completa los campos obligatorios para poder guardar" class="aviso-vista" textWrap="true"></Label>
+  </StackLayout>
+</ScrollView>

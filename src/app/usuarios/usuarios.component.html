@@ -1,0 +1,40 @@
+<ActionBar title="Usuarios">
+  <NavigationButton text="Menú" android.systemIcon="ic_menu_more" (tap)="abrirMenu()"></NavigationButton>
+  <ActionItem text="Menú" ios.position="left" (tap)="abrirMenu()"></ActionItem>
+  <ActionItem text="Buscar" android.systemIcon="ic_menu_search" ios.systemIcon="12" ios.position="right" (tap)="irA('/usuarios/buscar')"></ActionItem>
+  <ActionItem text="Nuevo" android.systemIcon="ic_menu_add" ios.systemIcon="4" ios.position="right" (tap)="irA('/usuarios/nuevo')"></ActionItem>
+</ActionBar>
+<GridLayout rows="auto, auto, auto, *, auto" class="pagina">
+  <GridLayout row="0" columns="*, auto" class="control-fechas">
+    <Label col="0" text="Mostrar fechas de actualización" textWrap="true" verticalAlignment="center"></Label>
+    <Switch col="1" [checked]="fechas.mostrarFechas" (checkedChange)="cambiarFechas($any($event))" accessibilityLabel="Mostrar fechas de actualización"></Switch>
+  </GridLayout>
+  <GridLayout row="1" columns="*, *, *" class="pestanas">
+    <Button col="0" text="Usuarios" class="pestana pestana-activa" [nsRouterLink]="['/usuarios']"></Button>
+    <Button col="1" text="Áreas" class="pestana" [nsRouterLink]="['/usuarios/areas']"></Button>
+    <Button col="2" text="Subáreas" class="pestana" [nsRouterLink]="['/usuarios/subareas']"></Button>
+  </GridLayout>
+  <Label row="2" [text]="avisoVista + ' · ' + totalUsuarios + ' en total. Desliza hacia abajo para actualizar.'" class="aviso-vista contenedor" textWrap="true"></Label>
+
+  <PullToRefresh row="3" (refresh)="actualizarListado($any($event))">
+    <ListView [items]="usuariosVisibles" (itemTap)="verDetalle($any($event))" class="lista" separatorColor="transparent">
+      <ng-template let-usuario="item">
+        <GridLayout columns="auto, *, auto" class="tarjeta">
+          <Label col="0" [text]="usuario.nombre.charAt(0)" class="avatar" verticalAlignment="top"></Label>
+          <StackLayout col="1">
+            <Label [text]="usuario.nombre" class="nombre" textWrap="true"></Label>
+            <Label [text]="usuario.correo" class="dato" textWrap="true"></Label>
+            <Label [text]="usuario.subarea + '  ·  ' + usuario.categoria" class="dato" textWrap="true"></Label>
+            <Label *ngIf="fechas.mostrarFechas" [text]="'Última actualización: ' + usuario.actualizacion" class="fecha" textWrap="true"></Label>
+          </StackLayout>
+          <StackLayout col="2">
+            <Label class="fas icono-fav" [class.icono-fav-activo]="usuario.favorito" text="&#xf005;" (doubleTap)="alternarFavorito(usuario, $any($event))"></Label>
+            <Button class="fas boton-icono" text="&#xf02b;" (tap)="elegirCategoria(usuario)" accessibilityLabel="Cambiar categoría"></Button>
+          </StackLayout>
+        </GridLayout>
+      </ng-template>
+    </ListView>
+  </PullToRefresh>
+
+  <Button row="4" *ngIf="totalUsuarios > limiteInicial" [text]="mostrarTodos ? 'Ver menos' : 'Ver las ' + totalUsuarios + ' personas'" (tap)="alternarListado()"></Button>
+</GridLayout>
